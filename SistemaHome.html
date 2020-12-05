@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/SistemaMenu.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Gruppo&family=Gupter:wght@400;500&family=Source+Code+Pro:ital,wght@1,500&display=swap" rel="stylesheet">
+        <style>
+            body{
+    background: linear-gradient(180deg, #243B55 0%, rgba(36, 59, 85, 0) 100%), #141E30;
+    background-repeat: no-repeat;
+    overflow-x: auto;
+}
+
+
+#header{ position: absolute;
+width: 1440px;
+left: 0px;
+top: -2px;
+background-color: #2E79EA;
+}
+.dropbtn {
+  margin-left: 70em;
+  background-color: #2E79EA;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+margin-left: 70em;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color:  #2E79EA;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:#2E79EA;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: lavenderblush;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
+  display: block;
+  font-family: gruppo;
+}
+
+.sidenav a:hover {
+   text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+}
+main img{
+position: absolute;
+width: 302px;
+height: 362px;
+left: 35em;
+top: 14em;  
+}
+h3{
+position: absolute;
+left: 380px;
+top: 140px;
+bottom:5.5em; 
+font-family: Gruppo;
+font-style: normal;
+font-weight: normal;
+font-size: 2em;
+line-height: 38px;
+text-align: center;
+color: #FFFFFF;
+}
+        </style>
+    </head>
+    <body>
+        <header>
+            <div id="header">
+                <div class="dropdown">
+                    <button class="dropbtn">Administrador</button>
+                    <div class="dropdown-content">
+                        <a href="Home.html">Sair</>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidenav">
+                <img src="img/logo header.png" alt=""/>
+                <a href="SistemaHome.html">Home</a>
+                <a href="PROJETOS.php">Projetos</a>
+                <a href="CLIENTES.html">Clientes</a>
+                <a href="CONTRATOS.php">Contratos</a>
+                <a href="PERGUNTAS.php">Perguntas</a>
+            </div>
+        </header>
+        <main>
+          <h3> Gerencie seus projetos da melhor forma!</h3>
+            <img src="homemHome.png" alt=""/>
+        </main>
+    </body>
+</html>

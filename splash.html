@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Carregando</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .splash-loader {
+    --dot-1: #5C86FF;
+    --dot-2: #E92862;
+    --dot-3: #66FC4C;
+    width: 280px;
+    height: 200px;
+    margin-top: -100px;
+    position: relative;
+    overflow: hidden;
+    div {
+        border-radius: 50%;
+        left: 50%;
+        top: 0;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        margin-left: -6px;
+        background: var(--b, var(--dot-1));
+        &.dot-2 {
+            --b: var(--dot-2);
+        }
+        &.dot-3 {
+            --b: var(--dot-3);
+        }
+    }
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+    &:before,
+    &:after {
+        box-sizing: inherit;
+    }
+}
+
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0B0D19;
+    .dribbble {
+        position: fixed;
+        display: block;
+        right: 20px;
+        bottom: 20px;
+        img {
+            display: block;
+            height: 28px;
+        }
+    }
+    .twitter {
+        position: fixed;
+        display: block;
+        right: 64px;
+        bottom: 14px;
+        svg {
+            width: 32px;
+            height: 32px;
+            fill: #1da1f2;
+        }
+    }
+}
+        </style>
+       
+    </head>
+    <body>
+       <div class="splash-loader">
+   <div class="middle"></div>
+</div>
+
+<!-- dribbble - twitter -->
+<a class="dribbble" href="https://dribbble.com/shots/8620942--Splash-Loader" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+<a class="twitter" target="_blank" href="https://twitter.com/aaroniker_me"><svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72"><path d="M67.812 16.141a26.246 26.246 0 0 1-7.519 2.06 13.134 13.134 0 0 0 5.756-7.244 26.127 26.127 0 0 1-8.313 3.176A13.075 13.075 0 0 0 48.182 10c-7.229 0-13.092 5.861-13.092 13.093 0 1.026.118 2.021.338 2.981-10.885-.548-20.528-5.757-26.987-13.679a13.048 13.048 0 0 0-1.771 6.581c0 4.542 2.312 8.551 5.824 10.898a13.048 13.048 0 0 1-5.93-1.638c-.002.055-.002.11-.002.162 0 6.345 4.513 11.638 10.504 12.84a13.177 13.177 0 0 1-3.449.457c-.846 0-1.667-.078-2.465-.231 1.667 5.2 6.499 8.986 12.23 9.09a26.276 26.276 0 0 1-16.26 5.606A26.21 26.21 0 0 1 4 55.976a37.036 37.036 0 0 0 20.067 5.882c24.083 0 37.251-19.949 37.251-37.249 0-.566-.014-1.134-.039-1.694a26.597 26.597 0 0 0 6.533-6.774z"></path></svg></a>
+    <script lang="Javascript">
+            const $ = (s, o = document) => o.querySelector(s);
+
+let loader = $('.splash-loader'),
+    middle = $('.middle', loader),
+    random = (min, max) => min + Math.random() * (max - min),
+    horizont = loader.offsetHeight;
+
+gsap.registerPlugin(Physics2DPlugin);
+gsap.registerPlugin(MotionPathPlugin);
+
+gsap.set(middle, {
+    scaleX: .4,
+    scaleY: .4,
+    opacity: 0
+});
+
+gsap.timeline({
+    repeat: -1,
+    repeatDelay: .9
+}).to(middle, {
+    scaleX: .8,
+    scaleY: 1.6,
+    opacity: 1,
+    duration: .16
+}, 0).to(middle, {
+    scaleY: 1,
+    duration: .2
+}, .16).to(middle, {
+    y: horizont,
+    duration: .4,
+    ease: 'power1.in',
+    onComplete() {
+        setTimeout(() => splash(6, 'dot-1', 0, horizont, -90), 50);
+        drop(-1, 'dot-2', 0, horizont);
+        drop(1, 'dot-3', 0, horizont);
+    }
+}, 0);
+
+function createDiv(c) {
+    let dot = document.createElement('div');
+    dot.className = c;
+    loader.appendChild(dot);
+    return dot;
+}
+
+function splash(quantity, type, x, y, angle, range = 50) {
+    for(let i = quantity - 1; i >= 0; i--) {
+
+        let dot = createDiv(type);
+
+        gsap.set(dot, {
+            opacity: 1,
+            x: x,
+            y: y,
+            scale: random(.2, .5)
+        });
+
+        gsap.timeline({
+            onComplete() {
+                dot.remove();
+            }
+        }).to(dot, {
+            physics2D: {
+                angle: random(angle - range / 2, angle + range / 2),
+                velocity: random(120, 150),
+                gravity: 180
+            },
+            duration: .6
+        }).to(dot, {
+            opacity: 0,
+            duration: .3
+        }, .3);
+
+    }
+}
+
+function drop(direction, type, x, y) {
+
+    let dot = createDiv(type),
+        dest = random(55, 70) * direction;
+
+    gsap.set(dot, {
+        x: x,
+        y: y,
+        scaleX: .6,
+        scaleY: 1.7
+    });
+
+    gsap.timeline({
+        onComplete() {
+            dot.remove();
+        }
+    }).to(dot, {
+        scaleX: 1,
+        scaleY: 1,
+        duration: .3
+    }, .1).to(dot, {
+        motionPath: {
+            curviness: 1.2,
+            autoRotate: 90,
+            path: [{
+                x: random(30, 40) * direction,
+                y: y - random(40, 70)
+            }, {
+                x: dest,
+                y: y
+            }]
+        },
+        duration: .75,
+        ease: 'slow(0.1, 0.4, false)',
+        onComplete() {
+            splash(6, type, dest, horizont, -90 + 25 * direction)
+        }
+    }, 0);
+
+}
+        </script>
+    </body>
+</html>
